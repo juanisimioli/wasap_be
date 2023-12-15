@@ -1,0 +1,13 @@
+{
+  "name": "wasap",
+  "version": "1.0.0",
+  "description": "",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.2",
+    "hardhat": "^2.19.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
