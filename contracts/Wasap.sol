@@ -18,6 +18,7 @@ contract Wasap {
     event ContactAdded(address user, address contact);
     event AccountCreated(address user);
     event UserInfoUpdated(address user);
+    event ContactInfoUpdated(address user, address contact);
 
     struct User {
         string avatar;
@@ -205,14 +206,30 @@ contract Wasap {
     }
 
     function updateUserInfo(
-        address _userAddress,
         string calldata _userAvatar,
         string calldata _userName
     ) external {
-        if (_userAddress != msg.sender) revert OnlyUserOwner();
-        userList[_userAddress].name = _userName;
-        userList[_userAddress].avatar = _userAvatar;
+        userList[msg.sender].name = _userName;
+        userList[msg.sender].avatar = _userAvatar;
 
         emit UserInfoUpdated(msg.sender);
+    }
+
+    function updateContactName(
+        address _contactAddress,
+        string calldata _name
+    ) external {
+        if (bytes(_name).length == 0) revert UserNameCannotBeEmpty();
+
+        Contact[] storage contactList = userList[msg.sender].contactList;
+
+        for (uint256 i = 0; i < contactList.length; i++) {
+            if (contactList[i].contactAddress == _contactAddress) {
+                contactList[i].name = _name;
+                break;
+            }
+        }
+
+        emit ContactInfoUpdated(msg.sender, _contactAddress);
     }
 }
