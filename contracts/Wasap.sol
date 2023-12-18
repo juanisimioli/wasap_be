@@ -12,7 +12,6 @@ contract Wasap {
     error UsersAlreadyContacts();
     error YouAreNotContactWithGivenUser();
     error InvalidAddress();
-    error OnlyUserOwner();
 
     event MessageSent(address user, address contact);
     event ContactAdded(address user, address contact);

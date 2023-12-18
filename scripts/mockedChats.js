@@ -10,11 +10,11 @@ const contractAddress = {
 const mockedUsers = {
   user1data: {
     name: "A",
-    avatar: "QmS53QbN2foRoE7pv5xTbyWDDJbmmmx6xxF74R39XtkBP2",
+    avatar: "avatar1",
   },
   user2data: {
     name: "B",
-    avatar: "QmS53QbN2foRoE7pv5xTbyWDDJbmmmx6xxF74R39XtkBP2",
+    avatar: "avatar2",
   },
 };
 
@@ -28,48 +28,31 @@ const createMockedChats = async (wasap) => {
 
   await wasap.connect(user1).addContact(await user2.getAddress(), "b");
 
-  await wasap
-    .connect(user1)
-    .sendMessage(await user2.getAddress(), "Hola ma, como va?");
+  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg01");
 
-  await wasap
-    .connect(user2)
-    .sendMessage(await user1.getAddress(), "Bien hijo vos?");
+  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg02");
 
-  await wasap
-    .connect(user1)
-    .sendMessage(await user2.getAddress(), "Todo bien, que hacias?");
+  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg03");
 
-  await wasap
-    .connect(user2)
-    .sendMessage(await user1.getAddress(), "Vengo de gimnasia, vos?");
+  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg04");
 
-  await wasap
-    .connect(user1)
-    .sendMessage(await user2.getAddress(), "Por ir al super");
+  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg05");
 
-  await wasap
-    .connect(user1)
-    .sendMessage(await user2.getAddress(), "Estas con la chuli?");
+  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg06");
 
-  await wasap
-    .connect(user2)
-    .sendMessage(
-      await user1.getAddress(),
-      "No, se fue a la pile de tu hermano"
-    );
+  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg07");
 
-  await wasap
-    .connect(user2)
-    .sendMessage(await user1.getAddress(), "Hacia mucho calor aca");
+  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg08");
 
-  await wasap
-    .connect(user1)
-    .sendMessage(await user2.getAddress(), "Si, aca tambien. No hay luz");
+  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg09");
 
-  await wasap
-    .connect(user2)
-    .sendMessage(await user1.getAddress(), "Que cagada");
+  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg10");
+
+  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg11");
+
+  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg12");
+
+  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg13");
 
   console.log("Mocked chats done!");
 };
