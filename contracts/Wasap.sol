@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
-import "hardhat/console.sol";
 
 contract Wasap {
     error UserAlreadyExist();
@@ -13,9 +12,9 @@ contract Wasap {
     error YouAreNotContactWithGivenUser();
     error InvalidAddress();
 
-    event MessageSent(address user, address contact);
-    event ContactAdded(address user, address contact);
     event AccountCreated(address user);
+    event ContactAdded(address user, address contact);
+    event MessageSent(address user, address contact);
     event UserInfoUpdated(address user);
     event ContactInfoUpdated(address user, address contact);
 
@@ -54,13 +53,9 @@ contract Wasap {
 
     mapping(bytes32 => Message[]) allMessages;
 
-    fallback() external {
-        console.log("Fallback");
-    }
+    fallback() external {}
 
-    receive() external payable {
-        console.log("Receive");
-    }
+    receive() external payable {}
 
     function checkUserExists(address addressUser) public view returns (bool) {
         return bytes(userList[addressUser].name).length > 0; // TODO: why bytes? what happen if user name is empty string?
@@ -102,9 +97,7 @@ contract Wasap {
             _user2 = temp;
         }
 
-        for (uint256 i = 0; i < userList[_user1].contactList.length; i++) {
-            // TODO: can i remove = 0?
-
+        for (uint256 i; i < userList[_user1].contactList.length; i++) {
             if (userList[_user1].contactList[i].contactAddress == _user2)
                 return true;
         }
@@ -152,7 +145,7 @@ contract Wasap {
                 contactList.length
             );
 
-        for (uint256 i = 0; i < contactList.length; i++) {
+        for (uint256 i; i < contactList.length; i++) {
             contactListWithAvatar[i] = ContactWithAvatar(
                 contactList[i].contactAddress,
                 contactList[i].name,
@@ -222,7 +215,7 @@ contract Wasap {
 
         Contact[] storage contactList = userList[msg.sender].contactList;
 
-        for (uint256 i = 0; i < contactList.length; i++) {
+        for (uint256 i; i < contactList.length; i++) {
             if (contactList[i].contactAddress == _contactAddress) {
                 contactList[i].name = _name;
                 break;
