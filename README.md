@@ -52,7 +52,7 @@ npx hardhat run --network localhost scripts/deploy.js
 
 **Note**: In your .env file, copy and paste the contract address to LOCALHOST_WASAP_CONTRACT_ADDRESS.
 
-Run the script to create mocked flights:
+Run the script to create mocked chats:
 
 ```shell
 npx hardhat run --network localhost scripts/mockedChats.js
@@ -106,5 +106,5 @@ I would love to hear from you! Whether you have questions, feedback, or just wan
 ## Other DApps Developed by Me:
 
 Aerolineas: This dapp facilitates the purchase of flight tickets using cryptocurrency. Each seat from one destination to another on a specific flight is represented as an NFT. This allows users to perform various actions such as canceling reservations, purchasing tickets, making free transfer reservations, or even reselling tickets at a desired price for others to buy.
-[Aerolineas Front End](https://github.com/juanisimioli/aerolineas_fe)
+[Aerolineas Front End](https://github.com/juanisimioli/aerolineas_fe) /
 [Aerolineas Back End](https://github.com/juanisimioli/aerolineas_be)
