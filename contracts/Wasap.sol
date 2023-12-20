@@ -61,29 +61,41 @@ contract Wasap {
         return bytes(userList[addressUser].name).length > 0; // TODO: why bytes? what happen if user name is empty string?
     }
 
-    function createAccount(
-        string calldata _name,
-        string calldata _avatar
-    ) external {
-        if (checkUserExists(msg.sender)) revert UserAlreadyExist();
-        if (bytes(_name).length == 0) revert UserNameCannotBeEmpty();
-
-        userList[msg.sender].avatar = _avatar;
-        userList[msg.sender].name = _name;
-
-        getAllUsers.push(AllUsers(_name, msg.sender)); // TODO: improveArrays? min 22
-
-        emit AccountCreated(msg.sender);
+    function getAllAppUsers() public view returns (AllUsers[] memory) {
+        return getAllUsers;
     }
 
     function getUserInfo(
         address _address
-    ) external view returns (string memory, string memory) {
+    ) external view returns (string memory name, string memory avatar) {
         if (!checkUserExists(msg.sender)) revert UserIsNotRegistered();
         return (userList[_address].name, userList[_address].avatar);
     }
 
-    function checkAlreadyContacts(
+    function getUserContactList()
+        external
+        view
+        returns (ContactWithAvatar[] memory)
+    {
+        Contact[] memory contactList = userList[msg.sender].contactList;
+
+        ContactWithAvatar[]
+            memory contactListWithAvatar = new ContactWithAvatar[](
+                contactList.length
+            );
+
+        for (uint256 i; i < contactList.length; i++) {
+            contactListWithAvatar[i] = ContactWithAvatar(
+                contactList[i].contactAddress,
+                contactList[i].name,
+                userList[contactList[i].contactAddress].avatar
+            );
+        }
+
+        return contactListWithAvatar;
+    }
+
+    function _checkAlreadyContacts(
         address _user1,
         address _user2
     ) private view returns (bool) {
@@ -115,47 +127,6 @@ contract Wasap {
         );
     }
 
-    function addContact(
-        address _contactAddress,
-        string calldata _contactName
-    ) external {
-        if (!checkUserExists(msg.sender)) revert CreateAnAccountFirst();
-        if (!checkUserExists(_contactAddress))
-            revert NewContactIsNotRegistered();
-        if (msg.sender == _contactAddress) revert CannotAddYourselfAsAContact();
-        if (checkAlreadyContacts(msg.sender, _contactAddress))
-            revert UsersAlreadyContacts();
-        if (_contactAddress == address(0)) revert InvalidAddress();
-
-        _addContact(msg.sender, _contactAddress, _contactName);
-        _addContact(_contactAddress, msg.sender, userList[msg.sender].name);
-
-        emit ContactAdded(msg.sender, _contactAddress);
-    }
-
-    function getUserContactList()
-        external
-        view
-        returns (ContactWithAvatar[] memory)
-    {
-        Contact[] memory contactList = userList[msg.sender].contactList;
-
-        ContactWithAvatar[]
-            memory contactListWithAvatar = new ContactWithAvatar[](
-                contactList.length
-            );
-
-        for (uint256 i; i < contactList.length; i++) {
-            contactListWithAvatar[i] = ContactWithAvatar(
-                contactList[i].contactAddress,
-                contactList[i].name,
-                userList[contactList[i].contactAddress].avatar
-            );
-        }
-
-        return contactListWithAvatar;
-    }
-
     function _getChatCode(
         address _user1,
         address _user2
@@ -167,13 +138,46 @@ contract Wasap {
         }
     }
 
+    function createAccount(
+        string calldata _name,
+        string calldata _avatar
+    ) external {
+        if (checkUserExists(msg.sender)) revert UserAlreadyExist();
+        if (bytes(_name).length == 0) revert UserNameCannotBeEmpty();
+
+        userList[msg.sender].avatar = _avatar;
+        userList[msg.sender].name = _name;
+
+        getAllUsers.push(AllUsers(_name, msg.sender)); // TODO: improveArrays? min 22
+
+        emit AccountCreated(msg.sender);
+    }
+
+    function addContact(
+        address _contactAddress,
+        string calldata _contactName
+    ) external {
+        if (!checkUserExists(msg.sender)) revert CreateAnAccountFirst();
+        if (!checkUserExists(_contactAddress))
+            revert NewContactIsNotRegistered();
+        if (msg.sender == _contactAddress) revert CannotAddYourselfAsAContact();
+        if (_checkAlreadyContacts(msg.sender, _contactAddress))
+            revert UsersAlreadyContacts();
+        if (_contactAddress == address(0)) revert InvalidAddress();
+
+        _addContact(msg.sender, _contactAddress, _contactName);
+        _addContact(_contactAddress, msg.sender, userList[msg.sender].name);
+
+        emit ContactAdded(msg.sender, _contactAddress);
+    }
+
     function sendMessage(
         address _contactAddress,
         string calldata _text
     ) external {
         if (!checkUserExists(msg.sender)) revert CreateAnAccountFirst();
         if (!checkUserExists(_contactAddress)) revert UserIsNotRegistered();
-        if (!checkAlreadyContacts(msg.sender, _contactAddress))
+        if (!_checkAlreadyContacts(msg.sender, _contactAddress))
             revert YouAreNotContactWithGivenUser();
 
         bytes32 chatCode = _getChatCode(msg.sender, _contactAddress);
@@ -191,10 +195,6 @@ contract Wasap {
         bytes32 chatCode = _getChatCode(msg.sender, _contactAddress);
 
         return allMessages[chatCode];
-    }
-
-    function getAllAppUsers() public view returns (AllUsers[] memory) {
-        return getAllUsers;
     }
 
     function updateUserInfo(
