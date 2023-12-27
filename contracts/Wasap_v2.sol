@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-contract Wasap {
+contract Wasap_v2 {
     error UserAlreadyExist();
     error UserNameCannotBeEmpty();
     error UserIsNotRegistered();
@@ -14,7 +14,7 @@ contract Wasap {
 
     event AccountCreated(address user);
     event ContactAdded(address user, address contact);
-    event MessageSent(address user, address contact);
+    event TextSent(address user, address contact);
     event UserInfoUpdated(address user);
     event ContactInfoUpdated(address user, address contact);
 
@@ -35,7 +35,7 @@ contract Wasap {
         string avatar;
     }
 
-    struct Message {
+    struct Text {
         address sender;
         uint256 timestamp;
         string text;
@@ -46,12 +46,28 @@ contract Wasap {
         address userAddress;
     }
 
+    uint8 public constant VERSION = 2;
+
     AllUsers[] getAllUsers;
 
     // all registered users in our application
     mapping(address => User) userList;
 
-    mapping(bytes32 => Message[]) allMessages;
+    mapping(bytes32 => Text[]) allTexts;
+
+    // IMPLEMENTS PAYMENTS VARIABLES
+    struct Payment {
+        address sender;
+        uint256 timestamp;
+        uint256 amount;
+    }
+
+    error IncorrectPaymentAmount();
+    error InsufficientBalance();
+    error PaymentFailed();
+    event PaymentSent(address sender, address recipient);
+
+    mapping(bytes32 => Payment[]) allPayments;
 
     fallback() external {}
 
@@ -171,10 +187,7 @@ contract Wasap {
         emit ContactAdded(msg.sender, _contactAddress);
     }
 
-    function sendMessage(
-        address _contactAddress,
-        string calldata _text
-    ) external {
+    function sendText(address _contactAddress, string calldata _text) external {
         if (!checkUserExists(msg.sender)) revert CreateAnAccountFirst();
         if (!checkUserExists(_contactAddress)) revert UserIsNotRegistered();
         if (!_checkAlreadyContacts(msg.sender, _contactAddress))
@@ -182,19 +195,19 @@ contract Wasap {
 
         bytes32 chatCode = _getChatCode(msg.sender, _contactAddress);
 
-        Message memory newText = Message(msg.sender, block.timestamp, _text);
+        Text memory newText = Text(msg.sender, block.timestamp, _text);
 
-        allMessages[chatCode].push(newText);
+        allTexts[chatCode].push(newText);
 
-        emit MessageSent(msg.sender, _contactAddress);
+        emit TextSent(msg.sender, _contactAddress);
     }
 
-    function readMessages(
+    function readTexts(
         address _contactAddress
-    ) external view returns (Message[] memory) {
+    ) external view returns (Text[] memory) {
         bytes32 chatCode = _getChatCode(msg.sender, _contactAddress);
 
-        return allMessages[chatCode];
+        return allTexts[chatCode];
     }
 
     function updateUserInfo(
@@ -223,5 +236,38 @@ contract Wasap {
         }
 
         emit ContactInfoUpdated(msg.sender, _contactAddress);
+    }
+
+    // IMPLEMENTS PAYMENT METHODS
+
+    function sendPayment(address payable _contactAddress) external payable {
+        if (msg.value == 0) revert IncorrectPaymentAmount();
+        if (!checkUserExists(msg.sender)) revert CreateAnAccountFirst();
+        if (!checkUserExists(_contactAddress)) revert UserIsNotRegistered();
+        if (!_checkAlreadyContacts(msg.sender, _contactAddress))
+            revert YouAreNotContactWithGivenUser();
+
+        (bool s, ) = _contactAddress.call{value: msg.value}("");
+        if (!s) revert PaymentFailed();
+
+        bytes32 paymentCode = _getChatCode(msg.sender, _contactAddress);
+
+        Payment memory newPayment = Payment(
+            msg.sender,
+            block.timestamp,
+            msg.value
+        );
+
+        allPayments[paymentCode].push(newPayment);
+
+        emit PaymentSent(msg.sender, _contactAddress);
+    }
+
+    function readPayments(
+        address _contactAddress
+    ) external view returns (Payment[] memory) {
+        bytes32 paymentCode = _getChatCode(msg.sender, _contactAddress);
+
+        return allPayments[paymentCode];
     }
 }

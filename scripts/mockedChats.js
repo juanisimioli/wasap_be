@@ -1,6 +1,5 @@
 require("dotenv").config();
 const { ethers } = require("hardhat");
-const { expect } = require("chai");
 
 const contractAddress = {
   localhost: process.env.LOCALHOST_WASAP_CONTRACT_ADDRESS,
@@ -28,38 +27,38 @@ const createMockedChats = async (wasap) => {
 
   await wasap.connect(user1).addContact(await user2.getAddress(), "b");
 
-  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg01");
+  await wasap.connect(user1).sendText(await user2.getAddress(), "Msg01");
 
-  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg02");
+  await wasap.connect(user2).sendText(await user1.getAddress(), "Msg02");
 
-  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg03");
+  await wasap.connect(user1).sendText(await user2.getAddress(), "Msg03");
 
-  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg04");
+  await wasap.connect(user2).sendText(await user1.getAddress(), "Msg04");
 
-  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg05");
+  await wasap.connect(user1).sendText(await user2.getAddress(), "Msg05");
 
-  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg06");
+  await wasap.connect(user1).sendText(await user2.getAddress(), "Msg06");
 
-  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg07");
+  await wasap.connect(user2).sendText(await user1.getAddress(), "Msg07");
 
-  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg08");
+  await wasap.connect(user2).sendText(await user1.getAddress(), "Msg08");
 
-  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg09");
+  await wasap.connect(user1).sendText(await user2.getAddress(), "Msg09");
 
-  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg10");
+  await wasap.connect(user2).sendText(await user1.getAddress(), "Msg10");
 
-  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg11");
+  await wasap.connect(user2).sendText(await user1.getAddress(), "Msg11");
 
-  await wasap.connect(user1).sendMessage(await user2.getAddress(), "Msg12");
+  await wasap.connect(user1).sendText(await user2.getAddress(), "Msg12");
 
-  await wasap.connect(user2).sendMessage(await user1.getAddress(), "Msg13");
+  await wasap.connect(user2).sendText(await user1.getAddress(), "Msg13");
 
   console.log("Mocked chats done!");
 };
 
 async function main() {
   const wasap = await ethers.getContractAt(
-    "Wasap",
+    "Wasap_v1",
     contractAddress[hre.network.name]
   );
 

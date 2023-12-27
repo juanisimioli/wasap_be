@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("@openzeppelin/hardhat-upgrades");
 require("dotenv").config();
 
 const { INFURA_API_KEY, PRIVATE_KEY, ETHERSCAN_API_KEY } = process.env;
