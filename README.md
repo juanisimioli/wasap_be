@@ -1,3 +1,5 @@
+![Screenshot 2023-12-31 at 01 00 13](https://github.com/juanisimioli/wasap_fe/assets/48897558/ae8a7b9c-51ad-4460-ad25-b2212b0f4ebe)
+
 # Wasap Smart Contract
 
 Hello! I'm Juanisimioli, a frontend developer venturing into the blockchain ecosystem. I'm practicing by building decentralized applications (dapps) from scratch using NextJS 14 + Ethers 6.9 + Hardhat 2.19 + Solidity 0.8.18.
