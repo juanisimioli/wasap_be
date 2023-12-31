@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
-contract Wasap_v1 {
+import {Initializable} from "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import {UUPSUpgradeable} from "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+import {OwnableUpgradeable} from "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
+
+contract Wasap_v1 is Initializable, UUPSUpgradeable, OwnableUpgradeable {
     error UserAlreadyExist();
     error UserNameCannotBeEmpty();
     error UserIsNotRegistered();
@@ -46,8 +50,6 @@ contract Wasap_v1 {
         address userAddress;
     }
 
-    uint8 public constant VERSION = 1;
-
     AllUsers[] getAllUsers;
 
     // all registered users in our application
@@ -55,9 +57,10 @@ contract Wasap_v1 {
 
     mapping(bytes32 => Text[]) allTexts;
 
-    fallback() external {}
-
-    receive() external payable {}
+    function initialize(address multisig) public initializer {
+        __UUPSUpgradeable_init();
+        __Ownable_init(multisig);
+    }
 
     function checkUserExists(address addressUser) public view returns (bool) {
         return bytes(userList[addressUser].name).length > 0; // TODO: why bytes? what happen if user name is empty string?
@@ -100,7 +103,7 @@ contract Wasap_v1 {
     function _checkAlreadyContacts(
         address _user1,
         address _user2
-    ) private view returns (bool) {
+    ) internal view returns (bool) {
         // iterate over the array with fewer users
         if (
             userList[_user1].contactList.length >
@@ -123,7 +126,7 @@ contract Wasap_v1 {
         address _userAddress,
         address _contactAddress,
         string memory _contactName
-    ) private {
+    ) internal {
         userList[_userAddress].contactList.push(
             Contact(_contactAddress, _contactName)
         );
@@ -223,4 +226,10 @@ contract Wasap_v1 {
 
         emit ContactInfoUpdated(msg.sender, _contactAddress);
     }
+
+    function getVersion() public pure virtual returns (uint256) {
+        return 1;
+    }
+
+    function _authorizeUpgrade(address) internal override onlyOwner {}
 }

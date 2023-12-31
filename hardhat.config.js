@@ -2,17 +2,18 @@ require("@nomicfoundation/hardhat-toolbox");
 require("@openzeppelin/hardhat-upgrades");
 require("dotenv").config();
 
-const { INFURA_API_KEY, PRIVATE_KEY, ETHERSCAN_API_KEY } = process.env;
+const { ETHERSCAN_API_KEY, DEFENDER_KEY, DEFENDER_SECRET } = process.env;
 
 module.exports = {
-  solidity: "0.8.19",
+  solidity: "0.8.20",
+  defender: {
+    apiKey: DEFENDER_KEY,
+    apiSecret: DEFENDER_SECRET,
+  },
   networks: {
-    hardhat: {
-      chainId: 1337,
-    },
     sepolia: {
-      url: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
-      accounts: [PRIVATE_KEY],
+      url: "https://ethereum-sepolia.publicnode.com",
+      chainId: 11155111,
     },
   },
   etherscan: {

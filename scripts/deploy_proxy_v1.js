@@ -1,11 +1,26 @@
-// scripts/create-box.js
-const { ethers, upgrades } = require("hardhat");
+const { ethers, defender } = require("hardhat");
+require("dotenv").config();
 
 async function main() {
   const Wasap_v1 = await ethers.getContractFactory("Wasap_v1");
-  const wasap_v1 = await upgrades.deployProxy(Wasap_v1);
-  await wasap_v1.waitForDeployment();
-  console.log("Wasap v1 deployed to:", await wasap_v1.getAddress());
+
+  const upgradeApprovalProcess = await defender.getUpgradeApprovalProcess();
+
+  if (upgradeApprovalProcess.address === undefined) {
+    throw new Error(
+      `Upgrade approval process with id ${upgradeApprovalProcess.approvalProcessId} has no assigned address`
+    );
+  }
+
+  const deployment = await defender.deployProxy(
+    Wasap_v1,
+    [upgradeApprovalProcess.address],
+    { initializer: "initialize" }
+  );
+
+  await deployment.waitForDeployment();
+
+  console.log(`Contract deployed to ${await deployment.getAddress()}`);
 }
 
 main();

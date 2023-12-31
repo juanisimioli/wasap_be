@@ -1,0 +1,501 @@
+{
+  "manifestVersion": "3.2",
+  "proxies": [
+    {
+      "address": "0x726c6e1382BE603DCb6189b5c74ae32743791502",
+      "txHash": "0xb66c7daa621e35ab20ea9d8928c23f1756a6a0e47fe41a2b818be2ac2e021dba",
+      "remoteDeploymentId": "baf96684-8c51-4663-890a-305e84c3b0a0",
+      "kind": "uups"
+    }
+  ],
+  "impls": {
+    "c5c22707b8e61bf6ff0f4d0f39dfe377272990ae721e39e4c0271c8ccef9160b": {
+      "address": "0x1f58919cb1ca3a0C0B3ab6FD64EAFD1b54Cb124C",
+      "txHash": "0x9bbd28513cfda5ac365de0ff9420a74042c4a4901d32fac9f0f8809c62429e9f",
+      "remoteDeploymentId": "bd538802-f8a5-4beb-ae18-56d0cc09d9dc",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "getAllUsers",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_array(t_struct(AllUsers)1453_storage)dyn_storage",
+            "contract": "Wasap_v1",
+            "src": "contracts/Wasap_v1.sol:53"
+          },
+          {
+            "label": "userList",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_struct(User)1429_storage)",
+            "contract": "Wasap_v1",
+            "src": "contracts/Wasap_v1.sol:56"
+          },
+          {
+            "label": "allTexts",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_bytes32,t_array(t_struct(Text)1448_storage)dyn_storage)",
+            "contract": "Wasap_v1",
+            "src": "contracts/Wasap_v1.sol:58"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)64_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)14_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_struct(AllUsers)1453_storage)dyn_storage": {
+            "label": "struct Wasap_v1.AllUsers[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(Contact)1434_storage)dyn_storage": {
+            "label": "struct Wasap_v1.Contact[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(Text)1448_storage)dyn_storage": {
+            "label": "struct Wasap_v1.Text[]",
+            "numberOfBytes": "32"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(User)1429_storage)": {
+            "label": "mapping(address => struct Wasap_v1.User)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_array(t_struct(Text)1448_storage)dyn_storage)": {
+            "label": "mapping(bytes32 => struct Wasap_v1.Text[])",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AllUsers)1453_storage": {
+            "label": "struct Wasap_v1.AllUsers",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "userAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Contact)1434_storage": {
+            "label": "struct Wasap_v1.Contact",
+            "members": [
+              {
+                "label": "contactAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Text)1448_storage": {
+            "label": "struct Wasap_v1.Text",
+            "members": [
+              {
+                "label": "sender",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "timestamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "text",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_struct(User)1429_storage": {
+            "label": "struct Wasap_v1.User",
+            "members": [
+              {
+                "label": "avatar",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "contactList",
+                "type": "t_array(t_struct(Contact)1434_storage)dyn_storage",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    },
+    "17fa4aea603aa198a5d23f0d53faf493833ec18407a2c0a96786c3590d10d224": {
+      "address": "0xbD951496A00914edd03E7Ee56E33D2b60ff0f0dC",
+      "txHash": "0xc1f36b2f37169d58b00150ce609ae5abbf31909b3404e2bead01b7ee8ba8cadb",
+      "remoteDeploymentId": "db6f3332-e430-49ca-8d15-7740493e589b",
+      "layout": {
+        "solcVersion": "0.8.20",
+        "storage": [
+          {
+            "label": "getAllUsers",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_array(t_struct(AllUsers)1453_storage)dyn_storage",
+            "contract": "Wasap_v1",
+            "src": "contracts/Wasap_v1.sol:53"
+          },
+          {
+            "label": "userList",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_mapping(t_address,t_struct(User)1429_storage)",
+            "contract": "Wasap_v1",
+            "src": "contracts/Wasap_v1.sol:56"
+          },
+          {
+            "label": "allTexts",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_bytes32,t_array(t_struct(Text)1448_storage)dyn_storage)",
+            "contract": "Wasap_v1",
+            "src": "contracts/Wasap_v1.sol:58"
+          },
+          {
+            "label": "allPayments",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_bytes32,t_array(t_struct(Payment)2073_storage)dyn_storage)",
+            "contract": "Wasap_v2",
+            "src": "contracts/Wasap_v2.sol:17"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_struct(InitializableStorage)64_storage": {
+            "label": "struct Initializable.InitializableStorage",
+            "members": [
+              {
+                "label": "_initialized",
+                "type": "t_uint64",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_initializing",
+                "type": "t_bool",
+                "offset": 8,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(OwnableStorage)14_storage": {
+            "label": "struct OwnableUpgradeable.OwnableStorage",
+            "members": [
+              {
+                "label": "_owner",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_uint64": {
+            "label": "uint64",
+            "numberOfBytes": "8"
+          },
+          "t_array(t_struct(AllUsers)1453_storage)dyn_storage": {
+            "label": "struct Wasap_v1.AllUsers[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(Contact)1434_storage)dyn_storage": {
+            "label": "struct Wasap_v1.Contact[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(Payment)2073_storage)dyn_storage": {
+            "label": "struct Wasap_v2.Payment[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_struct(Text)1448_storage)dyn_storage": {
+            "label": "struct Wasap_v1.Text[]",
+            "numberOfBytes": "32"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(User)1429_storage)": {
+            "label": "mapping(address => struct Wasap_v1.User)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_array(t_struct(Payment)2073_storage)dyn_storage)": {
+            "label": "mapping(bytes32 => struct Wasap_v2.Payment[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_array(t_struct(Text)1448_storage)dyn_storage)": {
+            "label": "mapping(bytes32 => struct Wasap_v1.Text[])",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AllUsers)1453_storage": {
+            "label": "struct Wasap_v1.AllUsers",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "userAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Contact)1434_storage": {
+            "label": "struct Wasap_v1.Contact",
+            "members": [
+              {
+                "label": "contactAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Payment)2073_storage": {
+            "label": "struct Wasap_v2.Payment",
+            "members": [
+              {
+                "label": "sender",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "timestamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_struct(Text)1448_storage": {
+            "label": "struct Wasap_v1.Text",
+            "members": [
+              {
+                "label": "sender",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "timestamp",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "text",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_struct(User)1429_storage": {
+            "label": "struct Wasap_v1.User",
+            "members": [
+              {
+                "label": "avatar",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "contactList",
+                "type": "t_array(t_struct(Contact)1434_storage)dyn_storage",
+                "offset": 0,
+                "slot": "2"
+              }
+            ],
+            "numberOfBytes": "96"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {
+          "erc7201:openzeppelin.storage.Ownable": [
+            {
+              "contract": "OwnableUpgradeable",
+              "label": "_owner",
+              "type": "t_address",
+              "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:24",
+              "offset": 0,
+              "slot": "0"
+            }
+          ],
+          "erc7201:openzeppelin.storage.Initializable": [
+            {
+              "contract": "Initializable",
+              "label": "_initialized",
+              "type": "t_uint64",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:69",
+              "offset": 0,
+              "slot": "0"
+            },
+            {
+              "contract": "Initializable",
+              "label": "_initializing",
+              "type": "t_bool",
+              "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:73",
+              "offset": 8,
+              "slot": "0"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

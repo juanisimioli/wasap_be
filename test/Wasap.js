@@ -25,8 +25,12 @@ function runTestsForCode_Wasap_v1_using(versionToTest) {
 
     beforeEach(async () => {
       [deployer, user1, user2, user3] = await ethers.getSigners();
-      const Wasap_v1 = await ethers.getContractFactory("Wasap_v1");
-      const wasap_v1 = await upgrades.deployProxy(Wasap_v1);
+      const Wasap_v1 = await ethers.getContractFactory(
+        `Wasap_v${versionToTest}`
+      );
+      const wasap_v1 = await upgrades.deployProxy(Wasap_v1, [
+        await deployer.getAddress(),
+      ]);
 
       wasap = await wasap_v1.waitForDeployment();
       wasapAddress = await wasap.getAddress();
@@ -43,7 +47,7 @@ function runTestsForCode_Wasap_v1_using(versionToTest) {
 
     describe("Version Contract ", function () {
       it("Should return same contract version as version requested", async function () {
-        const versionContract = await wasap.VERSION();
+        const versionContract = await wasap.getVersion();
 
         await expect(versionContract).to.equal(versionToTest);
       });
@@ -395,7 +399,9 @@ function runTestsForCode_Wasap_v2_using(versionToTest) {
     beforeEach(async () => {
       [deployer, user1, user2, user3] = await ethers.getSigners();
       const Wasap_v1 = await ethers.getContractFactory("Wasap_v1");
-      const wasap_v1 = await upgrades.deployProxy(Wasap_v1);
+      const wasap_v1 = await upgrades.deployProxy(Wasap_v1, [
+        await deployer.getAddress(),
+      ]);
 
       wasap = await wasap_v1.waitForDeployment();
       wasapAddress = await wasap.getAddress();
@@ -427,7 +433,7 @@ function runTestsForCode_Wasap_v2_using(versionToTest) {
 
       describe("Version Contract", function () {
         it("Should return same contract version as version requested", async function () {
-          const versionContract = await wasap.VERSION();
+          const versionContract = await wasap.getVersion();
 
           await expect(versionContract).to.equal(versionToTest);
         });
