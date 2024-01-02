@@ -89,7 +89,7 @@ npx hardhat run --network localhost scripts/deploy_v2.js
 ## Blockchain Deployment
 
 First of all, you have to create an account on [OpenZeppelin Defender](https://www.openzeppelin.com/defender) and configure your [Deploy Environment](https://docs.openzeppelin.com/defender/v2/module/deploy).
-For Deploy approval processes you can choose a Relayer, for Upgrade Approval Processes you can choose a multisignature wallet, in this case create an account in [Safe](https://safe.global/).
+For Deploy approval processes you can choose a Relayer, for Upgrade Approval Processes you can choose a multisignature wallet, in this case create an account on [Safe](https://safe.global/).
 
 **Note**: In your .env file, copy and paste the DEFENDER_KEY and DEFENDER_SECRET variables.
 
@@ -105,18 +105,7 @@ To deploy version 2 (add feature of sending and receive Ether) on the Sepolia te
 npx hardhat run --network sepolia scripts/deploy_proxy_v1.js
 ```
 
-**Note**: In your .env file, copy and paste the contract address to SEPOLIA_WASAP_CONTRACT_ADDRESS.
-
 <br/>
-
-## Contract Verification
-
-You can verify your contract code on Etherscan:
-
-```shell
-npx hardhat verify --network sepolia [contractAddress]
-
-```
 
 <br/>
 
